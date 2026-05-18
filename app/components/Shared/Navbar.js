@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 
 const navLinks = [
-  { label: "Tutors", href: "/" },
+  { label: "Tutors", href: "/tutors" },
   { label: "Add Tutor", href: "/add-tutor" },
   { label: "My Tutors", href: "/my-tutors" },
   { label: "My Booked Sessions", href: "/my-booked-sessions" },
