@@ -1,8 +1,32 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 
-const myTutors = [];
+const myTutors = [
+  {
+    id: 1,
+    studentName: "Afiya Rahman",
+    phone: "+8801712345678",
+    tutorName: "Md. Rakib Hasan",
+    email: "rakib@gmail.com",
+    status: "Active",
+  },
+  {
+    id: 2,
+    studentName: "Tanvir Islam",
+    phone: "+8801811122233",
+    tutorName: "Nusrat Jahan",
+    email: "nusrat@gmail.com",
+    status: "Pending",
+  },
+  {
+    id: 3,
+    studentName: "Sarah Ahmed",
+    phone: "+8801912345678",
+    tutorName: "Tanvir Hasan",
+    email: "tanvir@gmail.com",
+    status: "Completed",
+  },
+];
 
 const MyTutorsPage = () => {
   return (
@@ -89,7 +113,78 @@ const MyTutorsPage = () => {
               </tr>
             </thead>
 
-            <tbody>{/* mapped my-tutors */}</tbody>
+            <tbody>
+              {/* mapped my-tutors */}
+              {myTutors.map((tutor) => (
+                <tr
+                  key={tutor.id}
+                  className="border-b border-border transition hover:bg-muted/30"
+                >
+                  <td className="px-6 py-5">
+                    <div className="flex items-center gap-4">
+                      <div className="relative size-12 overflow-hidden rounded-full">
+                        <Image
+                          src="https://i.ibb.co/RPKRzCp/user.jpg"
+                          alt="Student"
+                          fill
+                          sizes="160px"
+                          className="object-cover opacity-70"
+                        />
+                      </div>
+
+                      <div>
+                        <h3 className="font-semibold text-foreground">
+                          {tutor.studentName}
+                        </h3>
+
+                        <p className="text-sm text-muted-foreground">
+                          Medical Student
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-5 text-sm text-muted-foreground">
+                    {tutor.phone}
+                  </td>
+                  <td className="px-6 py-5">
+                    <p className="font-medium text-foreground">
+                      {tutor.tutorName}
+                    </p>
+                  </td>
+                  <td className="px-6 py-5 text-sm text-muted-foreground">
+                    {tutor.email}
+                  </td>
+                  <td className="px-6 py-5">
+                    <span
+                      className={`
+                      rounded-full px-3 py-1 text-xs font-semibold
+                      ${
+                        tutor.status === "Active"
+                          ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
+                          : tutor.status === "Pending"
+                            ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400"
+                            : "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400"
+                      }
+                    `}
+                    >
+                      {tutor.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-5 text-right">
+                    <button
+                      className="
+                      cursor-pointer rounded-xl border border-red-500
+                      px-4 py-2 text-sm font-semibold text-red-500
+                      transition hover:bg-red-50
+                      dark:hover:bg-red-500/10
+                    "
+                    >
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       )}
