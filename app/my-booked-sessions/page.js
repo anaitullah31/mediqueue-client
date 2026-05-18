@@ -93,26 +93,32 @@ const MyBookedSessions = () => {
           <table className="min-w-full">
             <thead className="border-b border-border bg-muted/40">
               <tr>
+                {/* Name */}
                 <th className="px-4 py-4 text-left text-sm font-semibold text-foreground md:px-6">
                   Name
                 </th>
 
-                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground md:table-cell">
+                {/* Phone - Hidden Mobile */}
+                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground lg:table-cell">
                   Phone
                 </th>
 
+                {/* Tutor Name */}
                 <th className="px-4 py-4 text-left text-sm font-semibold text-foreground md:px-6">
                   Tutor Name
                 </th>
 
-                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground lg:table-cell">
+                {/* Email - Hidden Mobile */}
+                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground xl:table-cell">
                   Email
                 </th>
 
-                <th className="px-4 py-4 text-left text-sm font-semibold text-foreground md:px-6">
+                {/* Status - Hidden Mobile */}
+                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground md:table-cell">
                   Status
                 </th>
 
+                {/* Action */}
                 <th className="px-4 py-4 text-right text-sm font-semibold text-foreground md:px-6">
                   Action
                 </th>
@@ -133,7 +139,7 @@ const MyBookedSessions = () => {
                   </td>
 
                   {/* Phone */}
-                  <td className="hidden px-6 py-5 text-sm text-muted-foreground md:table-cell">
+                  <td className="hidden px-6 py-5 text-sm text-muted-foreground lg:table-cell">
                     {session.phone}
                   </td>
 
@@ -143,29 +149,30 @@ const MyBookedSessions = () => {
                       {session.tutorName}
                     </p>
 
-                    <p className="block text-xs text-muted-foreground lg:hidden">
-                      {session.email}
+                    {/* Mobile Email */}
+                    <p className="mt-1 block text-xs text-muted-foreground md:hidden">
+                      {session.status}
                     </p>
                   </td>
 
                   {/* Email */}
-                  <td className="hidden px-6 py-5 text-sm text-muted-foreground lg:table-cell">
+                  <td className="hidden px-6 py-5 text-sm text-muted-foreground xl:table-cell">
                     {session.email}
                   </td>
 
                   {/* Status */}
-                  <td className="px-4 py-5 md:px-6">
+                  <td className="hidden px-6 py-5 md:table-cell">
                     <span
                       className={`
-                        rounded-full px-3 py-1 text-xs font-semibold
-                        ${
-                          session.status === "Confirmed"
-                            ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
-                            : session.status === "Pending"
-                              ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400"
-                              : "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400"
-                        }
-                      `}
+                rounded-full px-3 py-1 text-xs font-semibold
+                ${
+                  session.status === "Confirmed"
+                    ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
+                    : session.status === "Pending"
+                      ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400"
+                      : "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400"
+                }
+              `}
                     >
                       {session.status}
                     </span>
@@ -175,11 +182,12 @@ const MyBookedSessions = () => {
                   <td className="px-4 py-5 text-right md:px-6">
                     <button
                       className="
-                        cursor-pointer rounded-lg border border-red-500
-                        px-4 py-2 text-sm font-semibold text-red-500
-                        transition hover:bg-red-50
-                        dark:hover:bg-red-500/10
-                      "
+                cursor-pointer rounded-lg border border-red-500
+                px-3 py-2 text-xs font-semibold text-red-500
+                transition hover:bg-red-50
+                dark:hover:bg-red-500/10
+                md:px-4 md:text-sm
+              "
                     >
                       Cancel
                     </button>
