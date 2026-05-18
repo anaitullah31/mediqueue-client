@@ -1,0 +1,134 @@
+"use client";
+
+import Link from "next/link";
+import { Mail, Lock, Eye, User, ImageIcon } from "lucide-react";
+import Image from "next/image";
+import GoogleLogin from "../components/GoogleLogin";
+
+const RegisterPage = () => {
+  return (
+    <div className="mx-auto flex min-h-[calc(100vh-379px)] max-w-7xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md rounded-3xl border border-border bg-background p-6 shadow-xl md:p-8">
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold text-foreground">Create Account</h1>
+
+          <p className="mt-2 text-sm text-muted-foreground">
+            Join MediQueue and start learning today
+          </p>
+        </div>
+
+        <form className="space-y-5">
+          {/* Name */}
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-foreground">
+              Full Name
+            </label>
+
+            <div className="flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+              <User className="size-5 text-muted-foreground" />
+
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter your Full Name"
+                className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              />
+            </div>
+          </div>
+
+          {/* Image URL */}
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-foreground">
+              Image URL
+            </label>
+
+            <div className="flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+              <ImageIcon className="size-5 text-muted-foreground" />
+
+              <input
+                type="text"
+                name="image"
+                placeholder="Paste your image URL"
+                className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              />
+            </div>
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-foreground">
+              Email
+            </label>
+
+            <div className="flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+              <Mail className="size-5 text-muted-foreground" />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your Email"
+                className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              />
+            </div>
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-foreground">
+              Password
+            </label>
+
+            <div className="flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+              <Lock className="size-5 text-muted-foreground" />
+
+              <input
+                type="password"
+                name="password"
+                placeholder="Create your Password"
+                className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              />
+
+              <button type="button">
+                <Eye className="size-5 text-muted-foreground" />
+              </button>
+            </div>
+          </div>
+
+          {/* Terms */}
+          <label className="flex items-center gap-2 text-sm text-foreground">
+            <input type="checkbox" className="size-4 accent-primary" />I agree
+            to the Terms & Conditions
+          </label>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full cursor-pointer rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+          >
+            Create Account
+          </button>
+        </form>
+
+        {/* Login */}
+        <p className="mt-7 text-center text-sm text-foreground">
+          Already have an account?{" "}
+          <Link href="/login" className="font-medium text-primary">
+            Sign In
+          </Link>
+        </p>
+
+        {/* Divider */}
+        <div className="my-6 flex items-center gap-4">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-sm text-muted-foreground">Or With</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        {/* Google Button */}
+        <GoogleLogin />
+      </div>
+    </div>
+  );
+};
+
+export default RegisterPage;
