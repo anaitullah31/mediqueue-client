@@ -65,7 +65,6 @@ const MyTutorsPage = () => {
           <h2 className="text-2xl font-bold text-foreground">
             No Tutors Booked Yet
           </h2>
-
           <p className="mt-3 max-w-md text-muted-foreground">
             You haven&apos;t booked any tutor sessions yet. Explore expert
             tutors and start your personalized learning journey today.
@@ -87,100 +86,78 @@ const MyTutorsPage = () => {
           <table className="min-w-full">
             <thead className="border-b border-border bg-muted/40">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">
-                  Student
-                </th>
-
-                <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">
-                  Phone
-                </th>
-
-                <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">
+                <th className="px-4 py-4 text-left text-sm font-semibold text-foreground md:px-6">
                   Tutor Name
                 </th>
-
-                <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">
-                  Email
+                <th className="px-4 py-4 text-left text-sm font-semibold text-foreground md:px-6">
+                  Subject
+                </th>
+                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground md:table-cell">
+                  Available
+                </th>
+                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground md:table-cell">
+                  Hourly Fee
+                </th>
+                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground md:table-cell">
+                  Total Slot
                 </th>
 
-                <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">
-                  Status
+                <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground lg:table-cell">
+                  Registration Date
                 </th>
 
-                <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">
+                <th className="px-4 py-4 text-right text-sm font-semibold text-foreground md:px-6">
                   Action
                 </th>
               </tr>
             </thead>
-
             <tbody>
-              {/* mapped my-tutors */}
               {myTutors.map((tutor) => (
                 <tr
                   key={tutor.id}
                   className="border-b border-border transition hover:bg-muted/30"
                 >
-                  <td className="px-6 py-5">
-                    <div className="flex items-center gap-4">
-                      <div className="relative size-12 overflow-hidden rounded-full">
-                        <Image
-                          src="https://i.ibb.co/RPKRzCp/user.jpg"
-                          alt="Student"
-                          fill
-                          sizes="160px"
-                          className="object-cover opacity-70"
-                        />
-                      </div>
-
-                      <div>
-                        <h3 className="font-semibold text-foreground">
-                          {tutor.studentName}
-                        </h3>
-
-                        <p className="text-sm text-muted-foreground">
-                          Medical Student
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-5 text-sm text-muted-foreground">
-                    {tutor.phone}
-                  </td>
-                  <td className="px-6 py-5">
-                    <p className="font-medium text-foreground">
+                  <td className="px-4 py-5 md:px-6">
+                    <h3 className="font-semibold text-foreground">
                       {tutor.tutorName}
+                    </h3>
+                    <p className="hidden text-sm text-muted-foreground md:block">
+                      {tutor.location || "Dhanmondi, Dhaka"}
                     </p>
                   </td>
-                  <td className="px-6 py-5 text-sm text-muted-foreground">
-                    {tutor.email}
-                  </td>
-                  <td className="px-6 py-5">
-                    <span
-                      className={`
-                      rounded-full px-3 py-1 text-xs font-semibold
-                      ${
-                        tutor.status === "Active"
-                          ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
-                          : tutor.status === "Pending"
-                            ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400"
-                            : "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400"
-                      }
-                    `}
-                    >
-                      {tutor.status}
+                  <td className="px-4 py-5 md:px-6">
+                    <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                      {tutor.subject || "Mathematics"}
                     </span>
                   </td>
-                  <td className="px-6 py-5 text-right">
-                    <button
-                      className="
-                      cursor-pointer rounded-xl border border-red-500
-                      px-4 py-2 text-sm font-semibold text-red-500
-                      transition hover:bg-red-50
-                      dark:hover:bg-red-500/10
-                    "
-                    >
-                      Cancel
-                    </button>
+                  <td className="hidden px-6 py-5 text-sm text-muted-foreground md:table-cell">
+                    {tutor.availableTime || "Sun - Thu • 5PM - 8PM"}
+                  </td>
+                  <td className="hidden px-6 py-5 md:table-cell">
+                    <p className="font-semibold text-foreground">
+                      ${tutor.hourlyFee || 20}
+                      <span className="text-sm font-normal text-muted-foreground">
+                        /hour
+                      </span>
+                    </p>
+                  </td>
+                  <td className="hidden px-6 py-5 md:table-cell">
+                    <span className="font-medium text-foreground">
+                      {tutor.totalSlot || 20} Slots
+                    </span>
+                  </td>
+                  <td className="hidden px-6 py-5 text-sm text-muted-foreground lg:table-cell">
+                    {tutor.sessionStartDate || "2026-05-25"}
+                  </td>
+                  <td className="px-4 py-5 md:px-6">
+                    <div className="flex justify-end gap-2">
+                      <button className="cursor-pointer rounded-lg border border-primary px-3 py-2 text-xs font-semibold text-primary transition hover:bg-primary hover:text-white md:px-4 md:text-sm">
+                        Edit
+                      </button>
+                      <button className="cursor-pointer rounded-lg border border-red-500 px-3 py-2 text-xs font-semibold text-red-500 transition hover:bg-red-50 dark:hover:bg-red-500/10 md:px-4 md:text-sm">
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
