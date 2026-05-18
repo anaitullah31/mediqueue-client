@@ -1,4 +1,3 @@
-import { Button } from "@heroui/react";
 
 export const metadata = {
   title: "Home | MediQueue - Online Learning & Tutoring Platform",
@@ -7,5 +6,8 @@ export const metadata = {
 };
 
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+    </div>
+  );
 }
