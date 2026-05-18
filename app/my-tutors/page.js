@@ -70,7 +70,7 @@ const MyTutorsPage = () => {
             tutors and start your personalized learning journey today.
           </p>
           <Link
-            href="/tutors"
+            href="/add-tutor"
             className="
               mt-8 cursor-pointer rounded-xl
               bg-primary px-8 py-3
@@ -78,7 +78,7 @@ const MyTutorsPage = () => {
               transition hover:opacity-90
             "
           >
-            Explore Tutors
+            Add Tutor
           </Link>
         </div>
       ) : (
