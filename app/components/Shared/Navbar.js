@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Tutors", href: "/tutors" },
@@ -14,9 +15,15 @@ const navLinks = [
 ];
 
 const Navbar = () => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const { data: session } = authClient.useSession();
   const user = session?.user;
+
+  const handleLogout = async () => {
+    await authClient.signOut();
+    router.refresh();
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background">
@@ -60,6 +67,7 @@ const Navbar = () => {
 
           {user ? (
             <button
+              onClick={handleLogout}
               className="
               hidden md:flex
               cursor-pointer
