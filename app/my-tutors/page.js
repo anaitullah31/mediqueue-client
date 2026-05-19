@@ -1,3 +1,5 @@
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,7 +30,11 @@ const myTutors = [
   },
 ];
 
-const MyTutorsPage = () => {
+const MyTutorsPage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
       <div className="mb-8">

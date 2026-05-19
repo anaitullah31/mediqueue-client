@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
+import { authClient } from "@/lib/auth-client";
 
 const navLinks = [
   { label: "Tutors", href: "/tutors" },
@@ -14,6 +15,8 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background">
@@ -55,9 +58,23 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <ThemeSwitch />
 
-          <Link
-            href="/login"
-            className="
+          {user ? (
+            <button
+              className="
+              hidden md:flex
+              cursor-pointer
+              rounded-lg
+              bg-orange-400
+              px-5 py-2
+              text-sm font-medium text-white
+              transition hover:bg-orange-500"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="
               hidden md:flex
               rounded-lg
               bg-orange-400
@@ -65,9 +82,10 @@ const Navbar = () => {
               text-sm font-medium text-white
               transition hover:bg-orange-500
             "
-          >
-            Login
-          </Link>
+            >
+              Login
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu */}
