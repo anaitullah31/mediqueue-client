@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { revalidatePath } from "next/cache";
 
 const inputClass = `
   w-full rounded-xl border border-border
@@ -35,6 +36,7 @@ const AddTutorPage = () => {
       toast.success("Tutor added successfully", {
         position: "top-center",
       });
+      revalidatePath("/tutors");
       router.push("/tutors");
     }
   };
