@@ -2,10 +2,40 @@
 
 import Link from "next/link";
 import { Mail, Lock, Eye } from "lucide-react";
-import Image from "next/image";
 import GoogleLogin from "../components/GoogleLogin";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 const LoginPage = () => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    await authClient.signIn.email(
+      {
+        email: user.email,
+        password: user.password,
+        callbackURL: "/",
+      },
+      {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onSuccess: () => {
+          setLoading(false);
+        },
+        onError: (ctx) => {
+          setLoading(false);
+          alert(ctx.error.message);
+        },
+      },
+    );
+  };
+
   return (
     <div className="mx-auto flex min-h-[calc(100vh-379px)] max-w-7xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md rounded-3xl border border-border bg-background p-6 shadow-xl md:p-8">
@@ -16,7 +46,7 @@ const LoginPage = () => {
           </p>
         </div>
 
-        <form className="space-y-5">
+        <form onSubmit={handleFormSubmit} className="space-y-5">
           <div>
             <label className="mb-2 block text-sm font-semibold text-foreground">
               Email
@@ -65,9 +95,10 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="w-full cursor-pointer rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+            disabled={loading}
+            className={`w-full ${loading ? "" : "cursor-pointer"} rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90`}
           >
-            Sign In
+            {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
 
