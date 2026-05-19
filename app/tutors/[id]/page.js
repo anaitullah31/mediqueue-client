@@ -11,6 +11,27 @@ import {
 
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch tutor details");
+  }
+
+  const data = await res.json();
+  const tutorData = data?.data;
+  const {
+    tutorName,
+    photo,
+    subject,
+    availableTime,
+    hourlyFee,
+    totalSlot,
+    sessionStartDate,
+    institutionExperience,
+    location,
+    teachingMode,
+  } = tutorData;
+
   return (
     <section className="min-h-screen bg-muted/30 py-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -20,9 +41,9 @@ const TutorDetailsPage = async ({ params }) => {
             {/* Tutor Card */}
             <div className="overflow-hidden rounded-3xl border border-border bg-background shadow-sm">
               {/* Image */}
-              <div className="relative h-112.5 overflow-hidden rounded-t-3xl">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-3xl">
                 <Image
-                  src="https://i.ibb.co/RPKRzCp/user.jpg"
+                  src={photo}
                   alt="Tutor"
                   fill
                   priority
@@ -36,11 +57,9 @@ const TutorDetailsPage = async ({ params }) => {
                 <div className="flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-center md:justify-between">
                   <div>
                     <h1 className="text-4xl font-bold text-foreground">
-                      Md. Rakib Hasan
+                      {tutorName}
                     </h1>
-                    <p className="mt-2 text-muted-foreground">
-                      Expert Mathematics Tutor • 5 Years Experience
-                    </p>
+                    <p className="mt-2 text-muted-foreground capitalize">{subject}</p>
                   </div>
                   <div className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-primary">
                     <Star className="size-5 fill-current" />
@@ -55,7 +74,7 @@ const TutorDetailsPage = async ({ params }) => {
                     <div>
                       <p className="text-sm text-muted-foreground">Location</p>
                       <h3 className="font-semibold text-foreground">
-                        Dhanmondi, Dhaka
+                        {location}
                       </h3>
                     </div>
                   </div>
@@ -66,7 +85,7 @@ const TutorDetailsPage = async ({ params }) => {
                         Hourly Fee
                       </p>
                       <h3 className="font-semibold text-foreground">
-                        $20 / Hour
+                        ${hourlyFee} / Hour
                       </h3>
                     </div>
                   </div>
@@ -78,7 +97,7 @@ const TutorDetailsPage = async ({ params }) => {
                         Available Time
                       </p>
                       <h3 className="font-semibold text-foreground">
-                        Sun - Thu • 5PM - 8PM
+                        {availableTime}
                       </h3>
                     </div>
                   </div>
@@ -91,7 +110,7 @@ const TutorDetailsPage = async ({ params }) => {
                         Session Starts
                       </p>
                       <h3 className="font-semibold text-foreground">
-                        25 May 2026
+                        {sessionStartDate}
                       </h3>
                     </div>
                   </div>
@@ -103,10 +122,7 @@ const TutorDetailsPage = async ({ params }) => {
                     About Tutor
                   </h2>
                   <p className="mt-4 leading-8 text-muted-foreground">
-                    Experienced Mathematics tutor specializing in HSC, admission
-                    preparation, and university-level algebra and calculus.
-                    Passionate about helping students understand concepts deeply
-                    with practical examples and interactive learning techniques.
+                    {institutionExperience}
                   </p>
                 </div>
 
@@ -137,7 +153,7 @@ const TutorDetailsPage = async ({ params }) => {
             <div className="sticky top-24 rounded-3xl border border-border bg-background p-6 shadow-sm">
               <div className="border-b border-border pb-6">
                 <h2 className="text-3xl font-bold text-foreground">
-                  $20
+                  ${hourlyFee}
                   <span className="text-base font-normal text-muted-foreground">
                     /Hour
                   </span>
@@ -152,24 +168,28 @@ const TutorDetailsPage = async ({ params }) => {
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Teaching Mode</span>
 
-                  <span className="font-semibold text-foreground">Online</span>
+                  <span className="font-semibold text-foreground">
+                    {teachingMode}
+                  </span>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Total Seats</span>
 
                   <span className="font-semibold text-foreground">
-                    20 Seats
+                    {totalSlot} Seats
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Students</span>
+                  <span className="text-muted-foreground">Remaing Seats</span>
 
                   <div className="flex items-center gap-2">
                     <Users className="size-4 text-primary" />
 
-                    <span className="font-semibold text-foreground">120+</span>
+                    <span className="font-semibold text-foreground">
+                      {totalSlot}
+                    </span>
                   </div>
                 </div>
               </div>

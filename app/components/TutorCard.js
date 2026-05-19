@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+
 import { MapPin, CalendarDays, ArrowUpRight, Star } from "lucide-react";
+import Link from "next/link";
 
 const TutorCard = ({ tutor }) => {
   return (
@@ -64,7 +65,7 @@ const TutorCard = ({ tutor }) => {
           </div>
 
           <Link
-            href={`/tutor/${tutor?._id || 1}`}
+            href={`/tutors/${tutor?._id}`}
             className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-primary transition hover:gap-3"
           >
             Tutor Details
