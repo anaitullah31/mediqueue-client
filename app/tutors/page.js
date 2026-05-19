@@ -1,25 +1,17 @@
 import TutorCard from "../components/TutorCard";
 
 const TutorsPage = async () => {
-  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
-
-  if (!serverUrl) {
-    throw new Error("NEXT_PUBLIC_SERVER_URL is missing");
-  }
-
-  const res = await fetch(`${serverUrl}/tutors`, {
-    cache: "no-store",
-  });
-
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`);
   if (!res.ok) {
     throw new Error("Failed to fetch tutors");
   }
 
   const data = await res.json();
-  const tutors = data.data || [];
+  const tutors = data?.data || [];
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      {/* Header */}
       <div className="mb-14 text-center">
         <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
           Expert Tutors
@@ -36,9 +28,10 @@ const TutorsPage = async () => {
         </p>
       </div>
 
-      <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {tutors.map((tutor, index) => (
-          <TutorCard key={tutor._id} tutor={tutor} index={index} />
+      {/* Cards */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {tutors.map((tutor) => (
+          <TutorCard key={tutor._id} tutor={tutor} />
         ))}
       </div>
     </div>

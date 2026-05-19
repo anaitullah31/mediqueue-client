@@ -20,13 +20,16 @@ const AddTutorPage = () => {
     const formData = new FormData(e.currentTarget);
     const tutor = Object.fromEntries(formData.entries());
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/add-tutors`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tutor),
       },
-      body: JSON.stringify(tutor),
-    });
+    );
     const data = await res.json();
     if (data?.data?.insertedId) {
       toast.success("Tutor added successfully", {
