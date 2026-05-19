@@ -2,8 +2,14 @@ import TutorCard from "../components/TutorCard";
 
 const TutorsPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch tutors");
+  }
+
   const data = await res.json();
-  const tutors = data.data;
+  const tutors = data?.data || [];
+  console.log(tutors);
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* Header */}
