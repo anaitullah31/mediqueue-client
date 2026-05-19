@@ -13,7 +13,7 @@ const TutorCard = ({ tutor }) => {
           src={tutor?.photo || "https://i.ibb.co/RPKRzCp/user.jpg"}
           alt={tutor?.tutorName || "Tutor"}
           fill
-          priority={tutor?.id === 1}
+          priority={false}
           sizes="(max-width: 640px) 100vw,
            (max-width: 1024px) 50vw,
            (max-width: 1280px) 33vw,
@@ -68,7 +68,7 @@ const TutorCard = ({ tutor }) => {
           </div>
 
           <Link
-            href={`/tutors/${tutor?.id || 1}`}
+            href={`/tutors/${tutor?._id || 1}`}
             className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-primary transition hover:gap-3"
           >
             Tutor Details
