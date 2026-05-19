@@ -12,7 +12,12 @@ import {
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
+    {
+      cache: "no-store",
+    },
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch tutor details");
   }
@@ -59,7 +64,9 @@ const TutorDetailsPage = async ({ params }) => {
                     <h1 className="text-4xl font-bold text-foreground">
                       {tutorName}
                     </h1>
-                    <p className="mt-2 text-muted-foreground capitalize">{subject}</p>
+                    <p className="mt-2 text-muted-foreground capitalize">
+                      {subject}
+                    </p>
                   </div>
                   <div className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-primary">
                     <Star className="size-5 fill-current" />
