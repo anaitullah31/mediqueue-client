@@ -3,37 +3,47 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
-const myTutors = [
-  {
-    id: 1,
-    studentName: "Afiya Rahman",
-    phone: "+8801712345678",
-    tutorName: "Md. Rakib Hasan",
-    email: "rakib@gmail.com",
-    status: "Active",
-  },
-  {
-    id: 2,
-    studentName: "Tanvir Islam",
-    phone: "+8801811122233",
-    tutorName: "Nusrat Jahan",
-    email: "nusrat@gmail.com",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    studentName: "Sarah Ahmed",
-    phone: "+8801912345678",
-    tutorName: "Tanvir Hasan",
-    email: "tanvir@gmail.com",
-    status: "Completed",
-  },
-];
+// const myTutors = [
+//   {
+//     id: 1,
+//     studentName: "Afiya Rahman",
+//     phone: "+8801712345678",
+//     tutorName: "Md. Rakib Hasan",
+//     email: "rakib@gmail.com",
+//     status: "Active",
+//   },
+//   {
+//     id: 2,
+//     studentName: "Tanvir Islam",
+//     phone: "+8801811122233",
+//     tutorName: "Nusrat Jahan",
+//     email: "nusrat@gmail.com",
+//     status: "Pending",
+//   },
+//   {
+//     id: 3,
+//     studentName: "Sarah Ahmed",
+//     phone: "+8801912345678",
+//     tutorName: "Tanvir Hasan",
+//     email: "tanvir@gmail.com",
+//     status: "Completed",
+//   },
+// ];
 
 const MyTutorsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  const { id } = session?.user;
+  console.log(id, session);
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/my-tutors/${id}`,
+  );
+  const data = await res.json();
+  console.log(data.data);
+  const myTutors = data?.data;
+  console.log(myTutors);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
@@ -120,7 +130,7 @@ const MyTutorsPage = async () => {
             <tbody>
               {myTutors.map((tutor) => (
                 <tr
-                  key={tutor.id}
+                  key={tutor._id}
                   className="border-b border-border transition hover:bg-muted/30"
                 >
                   <td className="px-4 py-5 md:px-6">
