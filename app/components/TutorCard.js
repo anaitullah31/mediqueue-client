@@ -18,11 +18,7 @@ const TutorCard = ({ tutor }) => {
            (max-width: 1024px) 50vw,
            (max-width: 1280px) 33vw,
            25vw"
-          className="
-      object-cover object-top
-      transition duration-500
-      group-hover:scale-105
-    "
+          className="object-cover object-top transition duration-500 group-hover:scale-105"
         />
 
         <div className="absolute right-5 top-5 rounded-md bg-background px-5 py-2 text-center shadow-md">
@@ -68,7 +64,7 @@ const TutorCard = ({ tutor }) => {
           </div>
 
           <Link
-            href={`/tutors/${tutor?._id || 1}`}
+            href={`/tutor/${tutor?._id || 1}`}
             className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-primary transition hover:gap-3"
           >
             Tutor Details

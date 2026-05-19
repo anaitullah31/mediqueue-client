@@ -8,7 +8,6 @@ const TutorsPage = async () => {
 
   const data = await res.json();
   const tutors = data?.data || [];
-  console.log(tutors);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

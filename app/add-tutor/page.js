@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
 const inputClass = `
   w-full rounded-xl border border-border
   bg-background px-4 py-3 text-sm text-foreground
@@ -11,10 +14,26 @@ const inputClass = `
 const labelClass = "mb-2 block text-sm font-semibold text-foreground";
 
 const AddTutorPage = () => {
-  const handleFormSubmit = (e) => {
+  const router = useRouter();
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const tutor = Object.fromEntries(formData.entries());
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tutor),
+    });
+    const data = await res.json();
+    if (data?.data?.insertedId) {
+      toast.success("Tutor added successfully", {
+        position: "top-center",
+      });
+      router.push("/tutors");
+    }
   };
   return (
     <section className="min-h-screen bg-muted/30 px-4 py-8 md:px-8 lg:py-12">
