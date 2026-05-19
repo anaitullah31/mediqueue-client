@@ -21,17 +21,17 @@ export default function Footer() {
 
             <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href="/about" className="hover:text-primary">
+                <Link href="/" className="hover:text-primary">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="hover:text-primary">
+                <Link href="/" className="hover:text-primary">
                   Careers
                 </Link>
               </li>
               <li>
-                <Link href="/standards" className="hover:text-primary">
+                <Link href="/" className="hover:text-primary">
                   Medical Board Standards
                 </Link>
               </li>
@@ -43,17 +43,17 @@ export default function Footer() {
 
             <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href="/contact" className="hover:text-primary">
+                <Link href="/" className="hover:text-primary">
                   Contact Support
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-primary">
+                <Link href="/" className="hover:text-primary">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-primary">
+                <Link href="/" className="hover:text-primary">
                   Terms of Service
                 </Link>
               </li>
