@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import CancelSessionButton from "../components/CancelSessionButton";
 
 const MyBookedSessions = async () => {
   const session = await auth.api.getSession({
@@ -166,17 +167,7 @@ const MyBookedSessions = async () => {
 
                   {/* Action */}
                   <td className="px-4 py-5 text-right md:px-6">
-                    <button
-                      className="
-                cursor-pointer rounded-lg border border-red-500
-                px-3 py-2 text-xs font-semibold text-red-500
-                transition hover:bg-red-50
-                dark:hover:bg-red-500/10
-                md:px-4 md:text-sm
-              "
-                    >
-                      Cancel
-                    </button>
+                    <CancelSessionButton status={session?.status} sesionId={session?._id} />
                   </td>
                 </tr>
               ))}
