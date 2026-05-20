@@ -1,34 +1,20 @@
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
-const myBookedSessions = [
-  {
-    id: 1,
-    name: "Afiya Rahman",
-    phone: "+8801712345678",
-    tutorName: "Md. Rakib Hasan",
-    email: "rakib@gmail.com",
-    status: "Confirmed",
-  },
-  {
-    id: 2,
-    name: "Tanvir Islam",
-    phone: "+8801811122233",
-    tutorName: "Nusrat Jahan",
-    email: "nusrat@gmail.com",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    name: "Sarah Ahmed",
-    phone: "+8801912345678",
-    tutorName: "Tanvir Hasan",
-    email: "tanvir@gmail.com",
-    status: "Completed",
-  },
-];
+const MyBookedSessions = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const { id } = session?.user;
 
-const MyBookedSessions = () => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/my-booked-session/${id}`,
+  );
+  const data = await res.json();
+  const myBookedSessions = data?.data;
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
@@ -95,12 +81,12 @@ const MyBookedSessions = () => {
               <tr>
                 {/* Name */}
                 <th className="px-4 py-4 text-left text-sm font-semibold text-foreground md:px-6">
-                  Name
+                  Course Name
                 </th>
 
                 {/* Phone - Hidden Mobile */}
                 <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground lg:table-cell">
-                  Phone
+                  Teaching Mode
                 </th>
 
                 {/* Tutor Name */}
@@ -110,7 +96,7 @@ const MyBookedSessions = () => {
 
                 {/* Email - Hidden Mobile */}
                 <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground xl:table-cell">
-                  Email
+                  Session Time
                 </th>
 
                 {/* Status - Hidden Mobile */}
@@ -128,19 +114,19 @@ const MyBookedSessions = () => {
             <tbody>
               {myBookedSessions.map((session) => (
                 <tr
-                  key={session.id}
+                  key={session._id}
                   className="border-b border-border transition hover:bg-muted/30"
                 >
                   {/* Name */}
                   <td className="px-4 py-5 md:px-6">
                     <h3 className="font-semibold text-foreground">
-                      {session.name}
+                      {session.subject}
                     </h3>
                   </td>
 
                   {/* Phone */}
                   <td className="hidden px-6 py-5 text-sm text-muted-foreground lg:table-cell">
-                    {session.phone}
+                    {session.teachingMode}
                   </td>
 
                   {/* Tutor */}
@@ -157,11 +143,11 @@ const MyBookedSessions = () => {
 
                   {/* Email */}
                   <td className="hidden px-6 py-5 text-sm text-muted-foreground xl:table-cell">
-                    {session.email}
+                    {session.availableTime}
                   </td>
 
                   {/* Status */}
-                  <td className="hidden px-6 py-5 md:table-cell">
+                  <td className="hidden capitalize px-6 py-5 md:table-cell">
                     <span
                       className={`
                 rounded-full px-3 py-1 text-xs font-semibold

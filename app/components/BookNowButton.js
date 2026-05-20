@@ -18,7 +18,7 @@ const BookNowButton = ({ tutorData }) => {
 
       const bookingData = {
         courseId: tutorData?._id,
-        courseName: tutorData?.tutorName,
+        tutorName: tutorData.tutorName,
         tutorImage: tutorData?.photo,
         subject: tutorData?.subject,
         teachingMode: tutorData?.teachingMode,
