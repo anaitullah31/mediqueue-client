@@ -9,14 +9,23 @@ import {
   Users,
 } from "lucide-react";
 import BookNowButton from "@/app/components/BookNowButton";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
+  const token = await auth.api.getToken({
+    headers: await headers(),
+  });
+  console.log(token);
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
     {
       cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${token?.token}`,
+      },
     },
   );
   if (!res.ok) {
