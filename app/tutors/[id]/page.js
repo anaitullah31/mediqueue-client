@@ -8,13 +8,17 @@ import {
   Wallet,
   Users,
 } from "lucide-react";
+import BookNowButton from "@/app/components/BookNowButton";
 
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
+    {
+      cache: "no-store",
+    },
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch tutor details");
   }
@@ -61,7 +65,9 @@ const TutorDetailsPage = async ({ params }) => {
                     <h1 className="text-4xl font-bold text-foreground">
                       {tutorName}
                     </h1>
-                    <p className="mt-2 text-muted-foreground capitalize">{subject}</p>
+                    <p className="mt-2 text-muted-foreground capitalize">
+                      {subject}
+                    </p>
                   </div>
                   <div className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-primary">
                     <Star className="size-5 fill-current" />
@@ -197,17 +203,7 @@ const TutorDetailsPage = async ({ params }) => {
               </div>
 
               {/* Book Button */}
-              <button
-                className="
-                  w-full rounded-2xl bg-primary px-6 py-4
-                  text-base font-semibold text-white
-                  shadow-lg transition duration-300
-                  hover:scale-[1.02] hover:opacity-90
-                  active:scale-[0.98]
-                "
-              >
-                Book Seat
-              </button>
+              <BookNowButton tutorData={tutorData} />
 
               <p className="mt-4 text-center text-xs text-muted-foreground">
                 Secure your seat before slots are full.
