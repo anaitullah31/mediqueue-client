@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <main className="min-h-[calc(100vh-379px)]">{children}</main>
           <Footer />
-          <ToastContainer />
+          <ToastContainer position="top-center" />
         </NextThemeProvider>
       </body>
     </html>

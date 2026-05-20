@@ -2,48 +2,19 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-
-// const myTutors = [
-//   {
-//     id: 1,
-//     studentName: "Afiya Rahman",
-//     phone: "+8801712345678",
-//     tutorName: "Md. Rakib Hasan",
-//     email: "rakib@gmail.com",
-//     status: "Active",
-//   },
-//   {
-//     id: 2,
-//     studentName: "Tanvir Islam",
-//     phone: "+8801811122233",
-//     tutorName: "Nusrat Jahan",
-//     email: "nusrat@gmail.com",
-//     status: "Pending",
-//   },
-//   {
-//     id: 3,
-//     studentName: "Sarah Ahmed",
-//     phone: "+8801912345678",
-//     tutorName: "Tanvir Hasan",
-//     email: "tanvir@gmail.com",
-//     status: "Completed",
-//   },
-// ];
+import DeleteMyTutor from "../components/DeleteMyTutor";
 
 const MyTutorsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
   const { id } = session?.user;
-  console.log(id, session);
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/my-tutors/${id}`,
   );
   const data = await res.json();
-  console.log(data.data);
-  const myTutors = data?.data;
-  console.log(myTutors);
+  const myTutors = data?.data || [];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
@@ -79,7 +50,7 @@ const MyTutorsPage = async () => {
             />
           </div>
           <h2 className="text-2xl font-bold text-foreground">
-            No Tutors Booked Yet
+            No Tutors Added Yet
           </h2>
           <p className="mt-3 max-w-md text-muted-foreground">
             You haven&apos;t booked any tutor sessions yet. Explore expert
@@ -170,9 +141,7 @@ const MyTutorsPage = async () => {
                       <button className="cursor-pointer rounded-lg border border-primary px-3 py-2 text-xs font-semibold text-primary transition hover:bg-primary hover:text-white md:px-4 md:text-sm">
                         Edit
                       </button>
-                      <button className="cursor-pointer rounded-lg border border-red-500 px-3 py-2 text-xs font-semibold text-red-500 transition hover:bg-red-50 dark:hover:bg-red-500/10 md:px-4 md:text-sm">
-                        Delete
-                      </button>
+                      <DeleteMyTutor id={tutor?._id} />
                     </div>
                   </td>
                 </tr>

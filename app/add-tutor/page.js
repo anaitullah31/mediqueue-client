@@ -18,14 +18,12 @@ const AddTutorPage = () => {
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const tutor = Object.fromEntries(formData.entries());
     tutor.userId = user?.id;
-    console.log(tutor);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/add-tutors`,
