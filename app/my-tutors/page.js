@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import DeleteMyTutor from "../components/DeleteMyTutor";
+import EditTutorModal from "../components/EditTutorModal";
 
 const MyTutorsPage = async () => {
   const session = await auth.api.getSession({
@@ -134,13 +135,11 @@ const MyTutorsPage = async () => {
                     </span>
                   </td>
                   <td className="hidden px-6 py-5 text-sm text-muted-foreground lg:table-cell">
-                    {tutor.sessionStartDate || "2026-05-25"}
+                    {tutor.sessionDate || "2026-05-25"}
                   </td>
                   <td className="px-4 py-5 md:px-6">
                     <div className="flex justify-end gap-2">
-                      <button className="cursor-pointer rounded-lg border border-primary px-3 py-2 text-xs font-semibold text-primary transition hover:bg-primary hover:text-white md:px-4 md:text-sm">
-                        Edit
-                      </button>
+                      <EditTutorModal tutor={tutor} />
                       <DeleteMyTutor id={tutor?._id} />
                     </div>
                   </td>
