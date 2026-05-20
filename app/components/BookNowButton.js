@@ -15,7 +15,7 @@ const BookNowButton = ({ tutorData }) => {
         toast.error("Please login to book this course.");
         return;
       }
-
+      
       const bookingData = {
         courseId: tutorData?._id,
         tutorName: tutorData.tutorName,

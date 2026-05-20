@@ -208,6 +208,7 @@ const EditTutorModal = ({ tutor }) => {
 
                       <input
                         type="date"
+                        min={new Date().toISOString().split("T")[0]}
                         name="sessionDate"
                         defaultValue={sessionDate}
                         className={inputClass}

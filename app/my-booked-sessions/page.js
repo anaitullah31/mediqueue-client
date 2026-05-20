@@ -150,16 +150,15 @@ const MyBookedSessions = async () => {
                   {/* Status */}
                   <td className="hidden capitalize px-6 py-5 md:table-cell">
                     <span
-                      className={`
-                rounded-full px-3 py-1 text-xs font-semibold
-                ${
-                  session.status === "Confirmed"
-                    ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
-                    : session.status === "Pending"
-                      ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400"
-                      : "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400"
-                }
-              `}
+                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                        session.status === "confirmed"
+                          ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
+                          : session.status === "pending"
+                            ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400"
+                            : session.status === "canceled"
+                              ? "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400"
+                              : "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400"
+                      }`}
                     >
                       {session.status}
                     </span>
@@ -167,7 +166,10 @@ const MyBookedSessions = async () => {
 
                   {/* Action */}
                   <td className="px-4 py-5 text-right md:px-6">
-                    <CancelSessionButton status={session?.status} sesionId={session?._id} />
+                    <CancelSessionButton
+                      status={session?.status}
+                      sesionId={session?._id}
+                    />
                   </td>
                 </tr>
               ))}

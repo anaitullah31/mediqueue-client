@@ -91,7 +91,7 @@ const MyTutorsPage = async () => {
                 </th>
 
                 <th className="hidden px-6 py-4 text-left text-sm font-semibold text-foreground lg:table-cell">
-                  Registration Date
+                  Session Start Date
                 </th>
 
                 <th className="px-4 py-4 text-right text-sm font-semibold text-foreground md:px-6">
@@ -113,7 +113,7 @@ const MyTutorsPage = async () => {
                       {tutor.location || "Dhanmondi, Dhaka"}
                     </p>
                   </td>
-                  <td className="px-4 py-5 md:px-6">
+                  <td className="px-4 py-5 md:px-6 capitalize">
                     <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                       {tutor.subject || "Mathematics"}
                     </span>

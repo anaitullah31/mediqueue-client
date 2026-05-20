@@ -23,7 +23,9 @@ const AddTutorPage = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const tutor = Object.fromEntries(formData.entries());
+    tutor.totalSlot = Number(tutor.totalSlot);
     tutor.userId = user?.id;
+    tutor.email = user?.email
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/add-tutors`,
@@ -151,7 +153,12 @@ const AddTutorPage = () => {
               <label className={labelClass}>
                 Session Start Date <span className="text-red-500">*</span>
               </label>
-              <input type="date" name="sessionDate" className={inputClass} />
+              <input
+                min={new Date().toISOString().split("T")[0]}
+                type="date"
+                name="sessionDate"
+                className={inputClass}
+              />
             </div>
 
             <div className="md:col-span-2">
