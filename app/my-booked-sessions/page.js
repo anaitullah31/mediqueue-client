@@ -9,9 +9,17 @@ const MyBookedSessions = async () => {
     headers: await headers(),
   });
   const { id } = session?.user;
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/my-booked-session/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    },
   );
   const data = await res.json();
   const myBookedSessions = data?.data;

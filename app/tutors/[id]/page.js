@@ -14,7 +14,7 @@ import { headers } from "next/headers";
 
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const token = await auth.api.getToken({
+  const {token} = await auth.api.getToken({
     headers: await headers(),
   });
   console.log(token);
@@ -24,7 +24,7 @@ const TutorDetailsPage = async ({ params }) => {
     {
       cache: "no-store",
       headers: {
-        Authorization: `Bearer ${token?.token}`,
+        Authorization: `Bearer ${token}`,
       },
     },
   );
