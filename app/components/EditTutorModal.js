@@ -36,7 +36,8 @@ const EditTutorModal = ({ tutor }) => {
     try {
       const formData = new FormData(e.currentTarget);
       const updatedTutor = Object.fromEntries(formData.entries());
-      updatedTutor.totalSlot = parseFloat()
+      updatedTutor.totalSlot = Number(updatedTutor.totalSlot);
+      console.log(updatedTutor);
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${_id}`,
