@@ -54,7 +54,7 @@ const CancelSessionButton = ({ sesionId, status }) => {
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="rounded-md sm:max-w-100">
-            <AlertDialog.CloseTrigger />
+            <AlertDialog.CloseTrigger className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-muted text-foreground transition-all hover:bg-red-100 hover:text-red-500 dark:bg-white/10 dark:text-white dark:hover:bg-red-500/20 dark:hover:text-red-400" />
 
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
@@ -65,8 +65,8 @@ const CancelSessionButton = ({ sesionId, status }) => {
 
             <AlertDialog.Body>
               <p className="text-gray-700 dark:text-gray-300">
-                This will permanently cancel <strong>Session Details</strong> and
-                all of its data. This action cannot be undone.
+                This will permanently cancel <strong>Session Details</strong>{" "}
+                and all of its data. This action cannot be undone.
               </p>
             </AlertDialog.Body>
 

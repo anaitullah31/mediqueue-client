@@ -52,7 +52,7 @@ const DeleteMyTutor = ({ id }) => {
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="sm:max-w-100 rounded-md">
-            <AlertDialog.CloseTrigger />
+            <AlertDialog.CloseTrigger className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-muted text-foreground transition-all hover:bg-red-100 hover:text-red-500 dark:bg-white/10 dark:text-white dark:hover:bg-red-500/20 dark:hover:text-red-400" />
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
               <AlertDialog.Heading>
