@@ -2,17 +2,21 @@
 
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { AlertDialog, Button } from "@heroui/react";
 
 const CancelSessionButton = ({ sesionId, status }) => {
   const router = useRouter();
+  const isCancelled = status === "cancel";
 
   const handleCancelSession = async () => {
+    if (isCancelled) return;
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/my-booked-session/${sesionId}`,
         {
           method: "PATCH",
-        }
+        },
       );
 
       const data = await res.json();
@@ -30,18 +34,63 @@ const CancelSessionButton = ({ sesionId, status }) => {
     }
   };
 
+  if (isCancelled) {
+    return (
+      <Button
+        disabled
+        className="cursor-not-allowed rounded-lg border border-gray-300 bg-gray-200 px-3 py-2 text-xs font-semibold text-gray-500 opacity-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 md:px-4 md:text-sm"
+      >
+        Cancelled
+      </Button>
+    );
+  }
+
   return (
-    <button
-      disabled={status === "cancel"}
-      onClick={handleCancelSession}
-      className={`rounded-lg border px-3 py-2 text-xs font-semibold transition md:px-4 md:text-sm ${
-        status === "cancel"
-          ? "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
-          : "cursor-pointer border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10"
-      }`}
-    >
-      {status === "cancel" ? "Cancelled" : "Cancel"}
-    </button>
+    <AlertDialog>
+      <Button className="cursor-pointer rounded-lg border border-red-500 bg-transparent px-3 py-2 text-xs font-semibold text-red-500 transition hover:bg-red-50 dark:hover:bg-red-500/10 md:px-4 md:text-sm">
+        Cancel
+      </Button>
+
+      <AlertDialog.Backdrop>
+        <AlertDialog.Container>
+          <AlertDialog.Dialog className="rounded-md sm:max-w-100">
+            <AlertDialog.CloseTrigger />
+
+            <AlertDialog.Header>
+              <AlertDialog.Icon status="danger" />
+              <AlertDialog.Heading>
+                Cancel session permanently?
+              </AlertDialog.Heading>
+            </AlertDialog.Header>
+
+            <AlertDialog.Body>
+              <p className="text-gray-700 dark:text-gray-300">
+                This will permanently cancel <strong>Session Details</strong> and
+                all of its data. This action cannot be undone.
+              </p>
+            </AlertDialog.Body>
+
+            <AlertDialog.Footer>
+              <Button
+                slot="close"
+                variant="tertiary"
+                className="cursor-pointer rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold text-foreground transition-all hover:bg-muted dark:hover:bg-white/10 md:px-4 md:text-sm"
+              >
+                Cancel
+              </Button>
+
+              <Button
+                onClick={handleCancelSession}
+                slot="close"
+                className="cursor-pointer rounded-md border border-red-500  bg-transparent px-3 py-2 text-xs font-semibold text-red-500  transition hover:bg-red-50 dark:hover:bg-red-500/10 md:px-4 md:text-sm"
+              >
+                Confirm
+              </Button>
+            </AlertDialog.Footer>
+          </AlertDialog.Dialog>
+        </AlertDialog.Container>
+      </AlertDialog.Backdrop>
+    </AlertDialog>
   );
 };
 
