@@ -6,16 +6,40 @@ import GoogleLogin from "../components/GoogleLogin";
 import { authClient } from "../../lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
-    const {data, error } = await authClient.signUp.email(
+
+    const password = user.password;
+
+    // Uppercase validation
+    if (!/[A-Z]/.test(password)) {
+      return setErrorMessage(
+        "Password must contain at least one uppercase letter",
+      );
+    }
+
+    // Lowercase validation
+    if (!/[a-z]/.test(password)) {
+      return setErrorMessage(
+        "Password must contain at least one lowercase letter",
+      );
+    }
+
+    // Minimum length validation
+    if (password.length < 8) {
+      return setErrorMessage("Password must be at least 8 characters long");
+    }
+
+    const { data, error } = await authClient.signUp.email(
       {
         email: user.email,
         password: user.password,
@@ -33,7 +57,7 @@ const RegisterPage = () => {
         },
         onError: (ctx) => {
           setLoading(false);
-          alert(ctx.error.message);
+          toast.error(ctx.error.message);
         },
       },
     );
@@ -60,6 +84,7 @@ const RegisterPage = () => {
               <User className="size-5 text-muted-foreground" />
 
               <input
+                required
                 type="text"
                 name="name"
                 placeholder="Enter your Full Name"
@@ -78,6 +103,7 @@ const RegisterPage = () => {
               <ImageIcon className="size-5 text-muted-foreground" />
 
               <input
+                required
                 type="text"
                 name="image"
                 placeholder="Paste your image URL"
@@ -96,6 +122,7 @@ const RegisterPage = () => {
               <Mail className="size-5 text-muted-foreground" />
 
               <input
+                required
                 type="email"
                 name="email"
                 placeholder="Enter your Email"
@@ -114,6 +141,7 @@ const RegisterPage = () => {
               <Lock className="size-5 text-muted-foreground" />
 
               <input
+                required
                 type="password"
                 name="password"
                 placeholder="Create your Password"
@@ -131,6 +159,11 @@ const RegisterPage = () => {
             <input type="checkbox" className="size-4 accent-primary" />I agree
             to the Terms & Conditions
           </label>
+          {errorMessage && (
+            <p className="rounded-lg bg-red-50 px-4 py-2 text-sm text-red-500">
+              {errorMessage}
+            </p>
+          )}
 
           {/* Submit */}
           <button
