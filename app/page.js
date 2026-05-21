@@ -1,5 +1,6 @@
 import AvailableTutors from "./components/AvailableTutors";
 import Banner from "./components/Banner";
+import Featured from "./components/Featured";
 
 export const metadata = {
   title: "Home | MediQueue - Online Learning & Tutoring Platform",
@@ -8,11 +9,11 @@ export const metadata = {
 };
 
 export default function Home() {
-  
   return (
     <div>
       <Banner />
       <AvailableTutors />
+      <Featured />
     </div>
   );
 }

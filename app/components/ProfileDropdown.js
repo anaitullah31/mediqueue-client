@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, User, } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { useState } from "react";
 import { Avatar } from "@heroui/react";
 import { Person } from "@gravity-ui/icons";
@@ -22,14 +22,15 @@ const ProfileDropdown = ({ user, handleLogout }) => {
             referrerPolicy="no-referrer"
             className="object-cover"
             src={
-              user?.image && user.image.startsWith("http") ? (
-                user.image
-              ) : (
-                <Person />
-              )
+              user?.image && user.image.startsWith("http")
+                ? user.image
+                : undefined
             }
           />
-          <Avatar.Fallback>JD</Avatar.Fallback>
+
+          <Avatar.Fallback>
+            <Person />
+          </Avatar.Fallback>
         </Avatar>
       </button>
       {/* Dropdown */}
