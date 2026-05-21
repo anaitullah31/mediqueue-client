@@ -14,7 +14,7 @@ import { headers } from "next/headers";
 
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const {token} = await auth.api.getToken({
+  const { token } = await auth.api.getToken({
     headers: await headers(),
   });
 
@@ -55,7 +55,7 @@ const TutorDetailsPage = async ({ params }) => {
             {/* Tutor Card */}
             <div className="overflow-hidden rounded-3xl border border-border bg-background shadow-sm">
               {/* Image */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-3xl">
+              <div className="relative aspect-4/3 w-full overflow-hidden rounded-t-3xl">
                 <Image
                   src={photo}
                   alt="Tutor"

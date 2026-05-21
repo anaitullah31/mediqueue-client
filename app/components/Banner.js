@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Banner = () => {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-gradient-to-br from-background via-background to-primary/5">
+    <section className="relative overflow-hidden border-b border-border bg-linear-to-br from-background via-background to-primary/5">
       {/* Background Blur */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
@@ -29,12 +29,18 @@ const Banner = () => {
           </p>
 
           {/* Buttons */}
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/tutors" className="cursor-pointer rounded-md bg-primary px-7 py-4 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02] hover:opacity-90">
+          <div className="mt-10 flex flex-row items-center justify-center gap-3">
+            <Link
+              href="/tutors"
+              className="rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:opacity-90 sm:px-7 sm:py-4 sm:text-base"
+            >
               Explore Tutors
             </Link>
 
-            <Link href="/add-tutor" className="cursor-pointer rounded-md border border-border bg-background px-7 py-4 text-base font-semibold text-foreground transition hover:border-primary hover:text-primary">
+            <Link
+              href="/add-tutor"
+              className="rounded-md border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-primary hover:text-primary sm:px-7 sm:py-4 sm:text-base"
+            >
               Start Teaching
             </Link>
           </div>

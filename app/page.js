@@ -1,3 +1,4 @@
+import AvailableTutors from "./components/AvailableTutors";
 import Banner from "./components/Banner";
 
 export const metadata = {
@@ -7,9 +8,11 @@ export const metadata = {
 };
 
 export default function Home() {
+  
   return (
     <div>
       <Banner />
+      <AvailableTutors />
     </div>
   );
 }
