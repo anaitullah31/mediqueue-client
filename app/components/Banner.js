@@ -34,7 +34,7 @@ export default function Banner() {
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
   return (
-    <section className="overflow-hidden bg-gradient-to-br from-background via-background to-cyan-100/60">
+    <section className="overflow-hidden bg-linear-to-br from-background via-background to-cyan-100/60">
       <div className="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-24">
         <div className="relative">
           {/* Carousel */}
