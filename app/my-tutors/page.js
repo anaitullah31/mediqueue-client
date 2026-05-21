@@ -4,12 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import DeleteMyTutor from "../components/DeleteMyTutor";
 import EditTutorModal from "../components/EditTutorModal";
+import { redirect } from "next/navigation";
 
 const MyTutorsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  const { id } = session?.user;
+  if (!session || !session.user) {
+    redirect("/login");
+  }
+
+  const { id } = session.user;
 
   const { token } = await auth.api.getToken({
     headers: await headers(),

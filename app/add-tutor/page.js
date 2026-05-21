@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import { toast } from "react-toastify";
 
 const inputClass = `
@@ -16,8 +16,25 @@ const labelClass = "mb-2 block text-sm font-semibold text-foreground";
 
 const AddTutorPage = () => {
   const router = useRouter();
-  const { data: session } = authClient.useSession();
-  const user = session?.user;
+  const { data: session, isPending } = authClient.useSession();
+  if (isPending) {
+    return (
+      <div className="flex min-h-[calc(100vh-379px)] items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="size-10 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto"></div>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Loading session...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  const user = session.user;
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +42,7 @@ const AddTutorPage = () => {
     const tutor = Object.fromEntries(formData.entries());
     tutor.totalSlot = Number(tutor.totalSlot);
     tutor.userId = user?.id;
-    tutor.email = user?.email
+    tutor.email = user?.email;
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/add-tutors`,
