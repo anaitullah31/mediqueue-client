@@ -20,7 +20,7 @@ const ProfileDropdown = ({ user, handleLogout }) => {
             src={
               user?.image && user.image.startsWith("http")
                 ? user.image
-                : "/default-user.png"
+                : "User"
             }
           />
           <Avatar.Fallback>JD</Avatar.Fallback>
