@@ -6,6 +6,12 @@ import DeleteMyTutor from "../components/DeleteMyTutor";
 import EditTutorModal from "../components/EditTutorModal";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "My Tutors | MediQueue - Manage Your Tutors",
+  description:
+    "View and manage your tutors on MediQueue. Organize tutoring sessions, track tutor information, and streamline your personalized teaching and learning experience.",
+};
+
 const MyTutorsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),

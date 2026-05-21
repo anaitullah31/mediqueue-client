@@ -12,8 +12,45 @@ import BookNowButton from "@/app/components/BookNowButton";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
+    {
+      cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    return {
+      title: "Tutor Details | MediQueue",
+      description: "View tutor details on MediQueue.",
+    };
+  }
+
+  const tutor = data?.data;
+
+  return {
+    title: `${tutor?.name || "Tutor Details"} | MediQueue`,
+    description:
+      tutor?.bio ||
+      "View tutor details, expertise, availability, and book a learning session on MediQueue.",
+  };
+}
+
 const TutorDetailsPage = async ({ params }) => {
   const { id } = await params;
+
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });

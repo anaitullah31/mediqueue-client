@@ -1,8 +1,14 @@
 import TutorCard from "../components/TutorCard";
 
+export const metadata = {
+  title: "Tutors | MediQueue - Online Learning & Tutoring Platform",
+  description:
+    "Welcome to MediQueue, an online learning and tutoring platform where students can learn new skills and teachers can share knowledge through interactive courses and personalized tutoring.",
+};
+
 const TutorsPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`, {
-    cache: "no-cache"
+    cache: "no-cache",
   });
   if (!res.ok) {
     throw new Error("Failed to fetch tutors");

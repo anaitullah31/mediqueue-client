@@ -4,6 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import CancelSessionButton from "../components/CancelSessionButton";
 
+export const metadata = {
+  title: "My Booked Sessions | MediQueue - Manage Your Learning Sessions",
+  description:
+    "View and manage your booked tutoring sessions on MediQueue. Track schedules, connect with tutors, and stay organized with your personalized learning journey.",
+};
+
 const MyBookedSessions = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -17,8 +23,8 @@ const MyBookedSessions = async () => {
     `${process.env.NEXT_PUBLIC_SERVER_URL}/my-booked-session/${id}`,
     {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     },
   );
   const data = await res.json();
