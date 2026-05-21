@@ -7,6 +7,7 @@ import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import NavLinks from "../NavLinks";
+import ProfileDropdown from "../ProfileDropdown";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -31,7 +32,7 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 border-b border-border bg-background">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
         {/* Left Side */}
-        <div className="flex items-center gap-3">
+        <div className="flex h-16 items-center gap-3">
           {/* Mobile Hamburger */}
           <button
             onClick={() => setOpen(!open)}
@@ -62,21 +63,11 @@ const Navbar = () => {
         </div>
 
         {/* Right Side */}
-        <div className="flex items-center gap-3">
+        <div className="flex h-16 items-center gap-3">
           <ThemeSwitch />
 
           {user ? (
-            <button
-              onClick={handleLogout}
-              className="
-            flex items-center justify-center
-            rounded-lg bg-orange-400
-            px-4 py-2 text-sm font-medium text-white
-            transition hover:bg-orange-500
-          "
-            >
-              Logout
-            </button>
+            <ProfileDropdown user={user} handleLogout={handleLogout} />
           ) : (
             <Link
               href="/login"
