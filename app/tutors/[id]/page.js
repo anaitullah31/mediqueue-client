@@ -190,14 +190,6 @@ const TutorDetailsPage = async ({ params }) => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Total Seats</span>
-
-                  <span className="font-semibold text-foreground">
-                    {totalSlot} Seats
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Remaing Seats</span>
 
                   <div className="flex items-center gap-2">

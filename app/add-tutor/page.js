@@ -83,6 +83,7 @@ const AddTutorPage = () => {
                 Tutor Name <span className="text-red-500">*</span>
               </label>
               <input
+                required
                 type="text"
                 name="tutorName"
                 placeholder="Enter tutor name"
@@ -95,6 +96,7 @@ const AddTutorPage = () => {
                 Photo URL <span className="text-red-500">*</span>
               </label>
               <input
+                required
                 type="text"
                 name="photo"
                 placeholder="Paste imgbb/postimage URL"
@@ -106,7 +108,7 @@ const AddTutorPage = () => {
               <label className={labelClass}>
                 Subject / Category <span className="text-red-500">*</span>
               </label>
-              <select name="subject" className={inputClass}>
+              <select required name="subject" className={inputClass}>
                 <option value="">Select Subject</option>
                 <option value="mathematics">Mathematics</option>
                 <option value="physics">Physics</option>
@@ -121,7 +123,7 @@ const AddTutorPage = () => {
               <label className={labelClass}>
                 Teaching Mode <span className="text-red-500">*</span>
               </label>
-              <select name="teachingMode" className={inputClass}>
+              <select required name="teachingMode" className={inputClass}>
                 <option value="">Select Mode</option>
                 <option value="online">Online</option>
                 <option value="offline">Offline</option>
@@ -135,6 +137,7 @@ const AddTutorPage = () => {
                 <span className="text-red-500">*</span>
               </label>
               <input
+                required
                 type="text"
                 name="availableTime"
                 placeholder="Sun - Thu 5:00 PM - 8:00 PM"
@@ -147,6 +150,7 @@ const AddTutorPage = () => {
                 Hourly Fee <span className="text-red-500">*</span>
               </label>
               <input
+                required
                 type="number"
                 name="hourlyFee"
                 placeholder="e.g. 500"
@@ -159,6 +163,7 @@ const AddTutorPage = () => {
                 Total Slot <span className="text-red-500">*</span>
               </label>
               <input
+                required
                 type="number"
                 name="totalSlot"
                 placeholder="e.g. 20"
@@ -171,6 +176,7 @@ const AddTutorPage = () => {
                 Session Start Date <span className="text-red-500">*</span>
               </label>
               <input
+                required
                 min={new Date().toISOString().split("T")[0]}
                 type="date"
                 name="sessionDate"
@@ -183,6 +189,7 @@ const AddTutorPage = () => {
                 Institution & Experience <span className="text-red-500">*</span>
               </label>
               <textarea
+                required
                 name="institution"
                 rows={5}
                 placeholder="Example: Dhaka University, 3 years teaching experience..."
@@ -195,6 +202,7 @@ const AddTutorPage = () => {
                 Location <span className="text-red-500">*</span>
               </label>
               <input
+                required
                 type="text"
                 name="location"
                 placeholder="Area / City"
@@ -213,7 +221,7 @@ const AddTutorPage = () => {
                 hover:bg-red-50 dark:hover:bg-red-500/10
               "
             >
-              Cancel
+              Clear
             </button>
 
             <button

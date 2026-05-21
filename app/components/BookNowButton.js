@@ -9,13 +9,16 @@ const BookNowButton = ({ tutorData }) => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
+  const availableSeats = Number(tutorData?.totalSlot ?? 0);
+  const isDisabled = availableSeats < 1;
+
   const handleBookedClass = async () => {
     try {
       if (!user?.id) {
         toast.error("Please login to book this course.");
         return;
       }
-      
+
       const bookingData = {
         courseId: tutorData?._id,
         tutorName: tutorData.tutorName,
@@ -74,10 +77,16 @@ const BookNowButton = ({ tutorData }) => {
 
   return (
     <button
-      onClick={handleBookedClass}
-      className="w-full cursor-pointer rounded-2xl bg-primary px-6 py-4 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02] hover:opacity-90 active:scale-[0.98]"
+      type="button"
+      disabled={isDisabled}
+      onClick={isDisabled ? undefined : handleBookedClass}
+      className={`w-full rounded-2xl px-6 py-4 text-base font-semibold text-white shadow-lg transition duration-300 ${
+        isDisabled
+          ? "cursor-not-allowed bg-gray-400 opacity-70"
+          : "cursor-pointer bg-primary hover:scale-[1.02] hover:opacity-90 active:scale-[0.98]"
+      }`}
     >
-      Book Seat
+      {isDisabled ? "No Seat Available" : "Book Seat"}
     </button>
   );
 };
