@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { LogOut, User, ChevronDown } from "lucide-react";
+import { LogOut, User, } from "lucide-react";
 import { useState } from "react";
 import { Avatar } from "@heroui/react";
+import { Person } from "@gravity-ui/icons";
 
 const ProfileDropdown = ({ user, handleLogout }) => {
   const [openProfile, setOpenProfile] = useState(false);
@@ -12,15 +12,21 @@ const ProfileDropdown = ({ user, handleLogout }) => {
   return (
     <div className="relative">
       {/* Profile Button */}
-      <button className="flex items-center justify-center gap-2" onClick={() => setOpenProfile(!openProfile)}>
+      <button
+        className="flex items-center justify-center gap-2"
+        onClick={() => setOpenProfile(!openProfile)}
+      >
         <Avatar>
           <Avatar.Image
             alt="John Doe"
+            referrerPolicy="no-referrer"
             className="object-cover"
             src={
-              user?.image && user.image.startsWith("http")
-                ? user.image
-                : "User"
+              user?.image && user.image.startsWith("http") ? (
+                user.image
+              ) : (
+                <Person />
+              )
             }
           />
           <Avatar.Fallback>JD</Avatar.Fallback>

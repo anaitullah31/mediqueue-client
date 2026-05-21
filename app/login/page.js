@@ -6,6 +6,7 @@ import GoogleLogin from "../components/GoogleLogin";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -30,7 +31,7 @@ const LoginPage = () => {
         },
         onError: (ctx) => {
           setLoading(false);
-          alert(ctx.error.message);
+          toast.error(ctx.error.message);
         },
       },
     );
