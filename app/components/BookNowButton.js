@@ -18,7 +18,7 @@ const BookNowButton = ({ tutorData }) => {
         toast.error("Please login to book this course.");
         return;
       }
-
+      const { data: tokenData } = await authClient.token();
       const bookingData = {
         courseId: tutorData?._id,
         tutorName: tutorData.tutorName,
@@ -40,6 +40,7 @@ const BookNowButton = ({ tutorData }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenData.token}`,
           },
           body: JSON.stringify(bookingData),
         },

@@ -4,8 +4,6 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter, redirect } from "next/navigation";
 import { toast } from "react-toastify";
 
-
-
 const inputClass = `
   w-full rounded-xl border border-border
   bg-background px-4 py-3 text-sm text-foreground
@@ -40,29 +38,51 @@ const AddTutorClient = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const tutor = Object.fromEntries(formData.entries());
-    tutor.totalSlot = Number(tutor.totalSlot);
-    tutor.userId = user?.id;
-    tutor.email = user?.email;
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/add-tutors`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const formData = new FormData(e.currentTarget);
+      const tutor = Object.fromEntries(formData.entries());
+
+      tutor.totalSlot = Number(tutor.totalSlot);
+      tutor.userId = user?.id;
+      tutor.email = user?.email;
+
+      const { data: tokenData } = await authClient.token();
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/add-tutors`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenData?.token}`,
+          },
+          body: JSON.stringify(tutor),
         },
-        body: JSON.stringify(tutor),
-      },
-    );
-    const data = await res.json();
-    if (data?.data?.insertedId) {
-      toast.success("Tutor added successfully", {
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data?.message || "Failed to add tutor", {
+          position: "top-center",
+        });
+        return;
+      }
+
+      if (data?.success || data?.data?.insertedId) {
+        toast.success(data?.message || "Tutor added successfully", {
+          position: "top-center",
+        });
+
+        router.push("/tutors");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong", {
         position: "top-center",
       });
-      router.push("/tutors");
-      router.refresh();
     }
   };
   return (

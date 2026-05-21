@@ -14,11 +14,15 @@ const DeleteMyTutor = ({ id }) => {
         toast.error("Tutor id is missing");
         return;
       }
+      const { data: tokenData } = await authClient.token();
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/my-tutors/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${tokenData?.token}`,
+          },
         },
       );
 

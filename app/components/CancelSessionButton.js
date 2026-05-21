@@ -3,6 +3,7 @@
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { AlertDialog, Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 const CancelSessionButton = ({ sesionId, status }) => {
   const router = useRouter();
@@ -12,10 +13,14 @@ const CancelSessionButton = ({ sesionId, status }) => {
     if (isCancelled) return;
 
     try {
+      const { data: tokenData } = await authClient.token();
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/my-booked-session/${sesionId}`,
         {
           method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${tokenData?.token}`,
+          },
         },
       );
 
